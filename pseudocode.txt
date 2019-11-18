@@ -1,0 +1,17 @@
+Existing day planners or calendars review.
+
+What will allow the user to input text?
+What will allow the user to save that text to localStorage?
+Confirm how it will run in the browser - does it happen by virtue of using JavaScript?
+
+Date and time
+Review Moment.js https://momentjs.com/ for date and time. 
+How to have it cover 9 to 5, standard business hours?
+How to have it detect time of day, CST, and current date CST?
+How to have each slot represent a particular hour (timeblocks)?
+How to have it color coded
+- apply css class using function to current hour, past, future
+
+How to have a save button that saves the input to local storage in each time block?
+
+Color coded to reflect whether a time slot is in the past, present or future?
