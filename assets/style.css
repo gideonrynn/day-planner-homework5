@@ -4,6 +4,10 @@ body {
   line-height: 1;
 }
 
+/*added by Sarah*/
+table {
+  background-color: white;
+}
 
 textarea{
   background: transparent;
@@ -12,6 +16,7 @@ textarea{
   color: #000000;
   border-left: 1px solid black;
   padding: 10px;
+  width: 100%;
 }
 
 .jumbotron {
@@ -21,7 +26,6 @@ textarea{
   border-radius: 0;
   border-bottom: 10px solid black;
 }
-
 
 
 .description{
