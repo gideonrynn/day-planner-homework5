@@ -1,3 +1,5 @@
+
+
 $(function () {
 
 //define current date with moment.format for header and add to header
@@ -8,27 +10,27 @@ $('#currentDay').html(toDay);
 var mNow = moment().format('h:mm a');
 $('#currentTime').html(mNow);
 
-//create an array for the hours of the workday
-var workDay = ["9 A.M.", "10 A.M.", "11 A.M.", "12 NOON", "1 P.M.", "2 P.M.", "3 P.M.", "4 P.M.", "5 P.M."]
-var workDay24 = ["9", "10", "11", "12", "13", "14", "15", "16", "17"]
-var timeComp = ["9:00", "10:00", "11:00", "12:00", "1:00", "2:00", "3:00", "4:00", "5:00"];
 
-//set if/then comparison for color-coded time blocks
-if ("tr.class#id" > "3:00") {
-    $().addClass("past");
-}
+//create an array for the hours of the workday, which gets appended to the newly created newHourCol
+var workDay = ["8 A.M.", "9 A.M.", "10", "11", "12 P.M.", "1", "2", "3", "4", "5 P.M."]
+
+//24 hour array for optional toggle
+var workDay24 = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17"]
+
+//array to be used as a comparison to a moment() variable for determining what colors the rows need to be to represent past, present and future
+var timeComp = ["9:00 am", "10:00 am", "11:00 pm", "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm"];
 
 
-//define for loop for adding table to page
-for (var i = 0; i < 9; i++) {
+//define for loop for adding table elements to page
+for (var i = 0; i < workDay.length; i++) {
 
     //create new row element and add class
-    var newRow = $("<tr>").addClass("time-block").attr('id', timeComp[i]).attr('data-index', 'hour');
+    var newRow = $("<tr>").addClass("time-block").attr('id', workDay24[i]);
 
-    //create new elements
-    var newHourCol = $("<td>").attr('id', [i]).text(workDay[i]).addClass("hour");
-    var newTextCol = $("<td>").append("<textarea>");
-    var newButtonCol = $("<td>").append("<button>").addClass("saveBtn");
+    //create new <td> elements
+    var newHourCol = $("<td>").attr('id', [i]).addClass("hour").text(workDay[i]);
+    var newTextCol = $("<td>").append("<textarea>").attr('id', workDay24[i]);
+    var newButtonCol = $("<td>").append("<button>" + "<i class='far fa-address-book'>" + "</i>" + "</button>").addClass("saveBtn").attr('id', [i])
         
     // Append the newly created table data to the table row
     newRow.append(newHourCol, newTextCol, newButtonCol);
@@ -38,18 +40,38 @@ for (var i = 0; i < 9; i++) {
 
     };
 
+    //set variable moment that matches 
+    
+    var mNowHH = moment().format('HH');
+    console.log(mNowHH)
+
+    $("tr").each( function(i) {
+
+        var rowBlock = $('tr');
+        var rowHour = $('tr').get(i).id;
+
+        if ( rowHour === mNowHH) {
+            rowBlock.addClass('present');
+        }
+        else if ( rowHour < mNowHH ) {
+            rowBlock.addClass('past');
+        }
+        else if ( rowHour > mNowHH ) {
+            rowBlock.addClass('future');
+        }
+      });
+
+
     //saving to local storage
     //set variable for the button to be clicked
     var saveBtnGroup = $(".saveBtn")[0];
-
+    
     saveBtnGroup.addEventListener("click", addLocalStor);
 
     function addLocalStor () {
-        localStorage.setItem('content', input_textarea.value);
+        localStorage.setItem('content', textarea[0].value);
     }
     
-
-
     //add display workday on 24 hour clock
     // btn24Hour.addEventListener("click", function () {
     //     for (var i = 0; i < 9; i++) {

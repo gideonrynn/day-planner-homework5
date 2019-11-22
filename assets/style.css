@@ -4,9 +4,16 @@ body {
   line-height: 1;
 }
 
-/*added by Sarah*/
 table {
   background-color: white;
+}
+
+tr {
+  text-align: center;
+}
+
+td {
+  text-align: center;
 }
 
 textarea{
@@ -53,8 +60,6 @@ textarea{
   color: #000000;
   border-top: 1px dashed #000000;
 }
-
-
 
 .past {
   background-color: #8A2BE2;
