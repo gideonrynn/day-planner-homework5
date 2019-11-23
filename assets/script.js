@@ -76,7 +76,7 @@ for (var i = 0; i < workDay.length; i++) {
         todaysList = [];
 
         $("textarea").each( function() {
-           var t = $(this).val();
+           var t = $(this).val()
            todaysList.push({input: t, time: mNow});
            console.log("value of t is " + t);
         })
@@ -85,25 +85,25 @@ for (var i = 0; i < workDay.length; i++) {
     
     //save list of inputs to localStorage
     function saveToLocal () {     
-        var str = JSON.stringify(todaysList);localStorage.setItem('todos', str);
+        var str = JSON.stringify(todaysList);
+        localStorage.setItem('todos', str);
     }
     
     //pull all items from local storage to display user appointment inputs at startup
     function getFromLocal () {
-       
+
         var str = localStorage.getItem('todos');
         todaysList = JSON.parse(str);
-
-        $("textarea").each( function(i) {
-        var userInput = todaysList[i].input;
-        $(this).val(userInput);
-    })
-
-        if (!todaysList) {
-            todaysList = [];
-        }
+        console.log(str);
+      
+            $("textarea").each( function(i) {
+                if (todaysList !== null) {
+                    var userInput = todaysList[i].input;
+                    $(this).val(userInput);
+                }
+                })
+        
     }
-
 
     getFromLocal ();
 
