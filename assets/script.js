@@ -1,5 +1,3 @@
-
-
 $(function () {
 
 //define current date with moment.format for header and add to header
@@ -20,6 +18,8 @@ var workDay24 = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17"]
 //array to be used as a comparison to a moment() variable for determining what colors the rows need to be to represent past, present and future
 var timeComp = ["9:00 am", "10:00 am", "11:00 pm", "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm"];
 
+JSON.parse(localStorage.getItem('content'));
+
 
 //define for loop for adding table elements to page
 for (var i = 0; i < workDay.length; i++) {
@@ -29,8 +29,8 @@ for (var i = 0; i < workDay.length; i++) {
 
     //create new <td> elements
     var newHourCol = $("<td>").attr('id', [i]).addClass("hour").text(workDay[i]);
-    var newTextCol = $("<td>").append("<textarea>").attr('id', workDay24[i]);
-    var newButtonCol = $("<td>").append("<button>" + "<i class='far fa-address-book'>" + "</i>" + "</button>").addClass("saveBtn").attr('id', [i])
+    var newTextCol = $("<td>").append("<textarea class='todo'>").attr('id', workDay24[i]);
+    var newButtonCol = $("<td>").addClass("saveBtn").append("<button class='saveBtn'>" + "<i class='far fa-address-book'>" + "</i>" + "</button>").attr('id', [i])
         
     // Append the newly created table data to the table row
     newRow.append(newHourCol, newTextCol, newButtonCol);
@@ -43,34 +43,43 @@ for (var i = 0; i < workDay.length; i++) {
     //set variable moment that matches 
     
     var mNowHH = moment().format('HH');
-    console.log(mNowHH)
+    console.log("This is the current time" + mNowHH);
 
+    //for each tr in the loop, check the current tr. 
+    //if the row id - which represents an hour - matches the current time hour, add color-coding class to this particular row 
     $("tr").each( function(i) {
 
-        var rowBlock = $('tr');
         var rowHour = $('tr').get(i).id;
-
-        if ( rowHour === mNowHH) {
-            rowBlock.addClass('present');
+        console.log(rowHour === mNowHH);
+        
+        if ( rowHour == mNowHH) {
+            $(this).addClass('present');
         }
         else if ( rowHour < mNowHH ) {
-            rowBlock.addClass('past');
+            $(this).addClass('past');
         }
         else if ( rowHour > mNowHH ) {
-            rowBlock.addClass('future');
-        }
+            $(this).addClass('future');
+                    }
       });
 
 
     //saving to local storage
     //set variable for the button to be clicked
     var saveBtnGroup = $(".saveBtn")[0];
+    var toDoClass = $(".todo");
+    console.log(toDoClass);
     
     saveBtnGroup.addEventListener("click", addLocalStor);
+    
 
     function addLocalStor () {
-        localStorage.setItem('content', textarea[0].value);
+        localStorage.setItem('content', JSON.stringify(toDoClass));
     }
+
+    console.log(localStorage);
+
+    
     
     //add display workday on 24 hour clock
     // btn24Hour.addEventListener("click", function () {
