@@ -5,17 +5,9 @@ body {
 }
 
 table {
-  background-color: whitesmoke;
+  background-color: #f2f2f2;
 }
 
-tr {
-  text-align: center;
-}
-
-td {
-  text-align: center;
-  border-left: k;
-}
 
 textarea{
   background: transparent;

@@ -1,16 +1,23 @@
 # day-planner-homework5
-This is a Git Hub repository for the NU Coding Bootcamp homework 5 Day Planner. 
+This is a Git Hub repository for the NU Coding Bootcamp Homework 5 Day Planner. 
 
 ## Purpose
-Planner will be used for tracking user appointments and run in the browser.
+Planner can be used for tracking and organizing user appointments for a standard 8-9 a.m. to 5 p.m. business day, and run in the browser.
+
 
 ## Usage
 The user will be able to view calendar run in the browser and see different colors on the page based on the hours of the day (hours past, present and future). User will be able to view same appointments even if the browser is closed and reopened, as clicking save will add the input details to local storage.
 
 
-## Installation
+## Setup
 
-With GitHub account, clone or download repository using link. 
+With GitHub account, clone or download repository using link. Planner runs in the browser and is updated dynamically with jQuery. Index file calls the following frameworks and libraries:
+Bootstrap 4.3.1
+Font Awesome v5.8.1
+Google API Open Sans
+jQuery 3.4.1
+Moment JS 2.24.0
+Local style.css and script.js
 
 ## License
 
