@@ -1,35 +1,53 @@
-$(function () {
 
 //define current date with moment.format for header and add to header
 var toDay = moment().format('dddd, MMMM Do', true);
 $('#currentDay').html(toDay);
 
-//define current time for header and add to header
+//define current time for header and add to store in local storage with user inputs
 var mNow = moment().format('h:mm a');
-$('#currentTime').html(mNow);
+
+//create table header elements and details, and append
+var explain = $('.explain');
+var currentTimeTh = $('<th scope=col id=current-time>' + '</th>');
+var hourStatusTh = $('<th scope=col>' + 'Click and enter details in the open spaces below. To save and view when browser is reopened, click button -->' + '<br>' + '</th>');
+var lastSavedTh = $('<th scope=col id=last-saved>' + 'Last Saved<br>' + '</th>');
+
+explain.append(currentTimeTh, hourStatusTh, lastSavedTh);
+
+//create color code key buttons and append to div
+var buttonKey = $("#button-color");
+var color1 = $('<button id=color1>' + 'Past' + '</button>').css('background-color', '#dbccff');
+var color2 = $('<button id=color2>' + 'Present' + '</button>').css('background-color', '#fff4cc');
+var color3 = $('<button id=color3>' + 'Future' + '</button>').css('background-color', '#ffccd7');
+
+buttonKey.append(color1, color2, color3);
 
 
 //create an array for the hours of the workday, which gets appended to the newly created newHourCol
 var workDay = ["8 A.M.", "9", "10", "11", "12 P.M.", "1", "2", "3", "4", "5 P.M."];
 
-//24 hour array for optional toggle
+//24 hour array that will match against the current time (moment HH) applying css colors representing past, present and future hours of the day
 var workDay24 = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17"];
 
 //define for loop for adding table elements to page
 for (var i = 0; i < workDay.length; i++) {
 
     //create new row element and add class
-    var newRow = $("<tr>").addClass("time-block").attr('id', workDay24[i]);
+    var newRow = $("<tr>").addClass("time-block").attr('data-hour', workDay24[i]);
 
-    //create new <td> elements
+    //create planner elements
 
-    var newHourCol = $("<td>").attr('id', [i]).addClass("hour").text(workDay[i]);
+    //create element that will represent hours of the day
+    var newHourCol = $("<td>").attr('id', 'left-hour').addClass("hour").text(workDay[i]);
 
+    //create textarea for user inputs, which will be stored on save
     var newtextArea = $("<textarea>").attr('id', [i]).attr('class', 'todo');
 
+    //create element that will contain textarea user inputs
     var newTextCol = $("<td>").append(newtextArea).attr('id', [i]);
 
-    var newButtonCol = $("<td>").addClass("saveBtn").append("<button class='saveBtn'>" + "<i class='far fa-address-book'>" + "</i>" + "</button>").attr('id', [i]);
+    //create div that will contain save button
+    var newButtonCol = $("<td>").addClass("saveBtn").append("<button class='saveBtn'>" + "<i class='far fa-address-book'>" + "</i>" + "</button>").attr('id', 'right-button');
 
         
     // Append the newly created table data to the table row
@@ -40,16 +58,15 @@ for (var i = 0; i < workDay.length; i++) {
 
     };
 
-    //set variable moment that matches 
-    
+    //set variable moment to compare against the data-hour attribute
     var mNowHH = moment().format('HH');
     console.log("This is the current time" + mNowHH);
 
-    //for each tr in the loop, check the current tr. 
-    //if the row id - which represents an hour - matches the current time hour, add color-coding class to this particular row 
+  
+    //for each table row, if a row id - which represents an hour - matches the current time hour, add color-coding class to this particular row 
     $("tr").each( function(i) {
 
-        var rowHour = $('tr').get(i).id;
+        var rowHour = $(this).data('hour');
         console.log(rowHour === mNowHH);
         
         if ( rowHour == mNowHH) {
@@ -68,18 +85,26 @@ for (var i = 0; i < workDay.length; i++) {
     var todaysList = [];
     console.log(todaysList);
 
-    // when save button is clicked, add
+    // when save button is clicked, run AddInputArray function to create array of user inputs
     $(".saveBtn").on( "click", addInputArray);
 
-    //on click, call the addNewToDo function, which processes through each text area, grabs the value, and pushes it to the array
+    //on click, call function which processes through each text area, grabs the value, and pushes it to the array
     function addInputArray () {
         todaysList = [];
+
+        var lastSavedspan = lastSavedTh.append('<span class=last-saved>');
+        //add current time to Last Saved cell
+        lastSavedspan.html(mNow);
 
         $("textarea").each( function() {
            var t = $(this).val()
            todaysList.push({input: t, time: mNow});
            console.log("value of t is " + t);
         })
+
+        
+
+        //run saveToLocal function below
         saveToLocal();
     }
     
@@ -87,6 +112,7 @@ for (var i = 0; i < workDay.length; i++) {
     function saveToLocal () {     
         var str = JSON.stringify(todaysList);
         localStorage.setItem('todos', str);
+        
     }
     
     //pull all items from local storage to display user appointment inputs at startup
@@ -106,16 +132,3 @@ for (var i = 0; i < workDay.length; i++) {
     }
 
     getFromLocal ();
-
-    //add display workday on 24 hour clock
-    // btn24Hour.addEventListener("click", function () {
-    //     for (var i = 0; i < 9; i++) {
-
-    //     var newHourCol = $("<td>").text(workDay24[i]).addClass("hour");
-
-    //     newRow.replace(newHourCol);
-    //     }
-    // })
-    //
-
-});
