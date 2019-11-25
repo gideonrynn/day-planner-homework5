@@ -1,25 +1,20 @@
 
-//define current date with moment.format for header and add to header
+//create table header elements and details that includes the current date, and append
+var trHeader = $('.trheader');
+var currentTimeTh = $('<th scope=col id=current-time>' + '</th>');
+var hourStatusTh = $('<th scope=col>' + '<span class=lead>' + 'Today is ' + '</span>' + '<span id=currentDay class=lead>' + '</span>' + '</th>');
+var lastSavedTh = $('<th scope=col id=last-saved>' + 'Save' +'</th>');
+trHeader.append(currentTimeTh, hourStatusTh, lastSavedTh);
+
+//define current date with moment.format for table header
 var toDay = moment().format('dddd, MMMM Do', true);
 $('#currentDay').html(toDay);
 
-//define current time for header and add to store in local storage with user inputs
-var mNow = moment().format('h:mm a');
-
-//create table header elements and details, and append
-var explain = $('.explain');
-var currentTimeTh = $('<th scope=col id=current-time>' + '</th>');
-var hourStatusTh = $('<th scope=col>' + 'Click and enter details in the open spaces below. To save and view when browser is reopened, click button -->' + '<br>' + '</th>');
-var lastSavedTh = $('<th scope=col id=last-saved>' + 'Last Saved<br>' + '</th>');
-
-explain.append(currentTimeTh, hourStatusTh, lastSavedTh);
-
-//create color code key buttons and append to div
+//create color code key append to span
 var buttonKey = $("#button-color");
 var color1 = $('<button id=color1>' + 'Past' + '</button>').css('background-color', '#dbccff');
 var color2 = $('<button id=color2>' + 'Present' + '</button>').css('background-color', '#fff4cc');
 var color3 = $('<button id=color3>' + 'Future' + '</button>').css('background-color', '#ffccd7');
-
 buttonKey.append(color1, color2, color3);
 
 
@@ -84,6 +79,8 @@ for (var i = 0; i < workDay.length; i++) {
     //create var that holds values entered into text area
     var todaysList = [];
     console.log(todaysList);
+    //define current time for header and add to store in local storage with user inputs
+    var mNow = moment().format('h:mm a');
 
     // when save button is clicked, run AddInputArray function to create array of user inputs
     $(".saveBtn").on( "click", addInputArray);
@@ -92,9 +89,7 @@ for (var i = 0; i < workDay.length; i++) {
     function addInputArray () {
         todaysList = [];
 
-        var lastSavedspan = lastSavedTh.append('<span class=last-saved>');
-        //add current time to Last Saved cell
-        lastSavedspan.html(mNow);
+        $(this).css('border-left', '1px solid blue');
 
         $("textarea").each( function() {
            var t = $(this).val()
@@ -111,14 +106,14 @@ for (var i = 0; i < workDay.length; i++) {
     //save list of inputs to localStorage
     function saveToLocal () {     
         var str = JSON.stringify(todaysList);
-        localStorage.setItem('todos', str);
+        localStorage.setItem('appts', str);
         
     }
     
     //pull all items from local storage to display user appointment inputs at startup
     function getFromLocal () {
 
-        var str = localStorage.getItem('todos');
+        var str = localStorage.getItem('appts');
         todaysList = JSON.parse(str);
         console.log(str);
       
@@ -131,4 +126,5 @@ for (var i = 0; i < workDay.length; i++) {
         
     }
 
+    //run function right away to get existing user inputs from localStorage
     getFromLocal ();

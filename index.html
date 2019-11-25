@@ -29,32 +29,37 @@
       <h1 class="display-3">What's To Do?</h1>
 
       <p class="lead">A simple calendar app for scheduling your work day</p>
-      <p id="currentDay" class="lead"> </p>
-
+      <p class="lead"> Select a <span id='button-color'></span> timeblock to enter details, click the save button and go! </p>
     </header>
-      
-      <!-- Timeblocks go here -->
 
       <div class="row">
 
         <div class="col">
-
-          <span id="button-color"></span>
-
+          <!-- Add instructions and notes for user -->
+          <p class="note m-0 p-0" style='text-align: center'><strong>Please note</strong>: Check your browser settings if you wish to have your entries populate each time you reopen your browser. Settings that clear your browser's cache will likely clear your appointments!</p>
+            
           <table class="table table-hover table-bordered">
-              <thead>
-                  <tr class="explain">
-                  </tr>
-                </thead>
+            
+            <!-- date and saved time details go here - will pull in from code -->
+            <thead>
+                
+              <tr class="trheader">
+              </tr>
+            
+            </thead>
 
-              <tbody class="calBody">
+             <!-- Timeblocks, rows, user inputs go here - will pull in from code -->
+            <tbody class="calBody">
                   
-              </tbody>
-              <caption>Planner by SCD 2019</caption>
-            </table>
-</div>
-</div>
-    </div>
+            </tbody>
+              
+            <caption><i>Planner by SCD 2019</i></caption>
+            
+          </table>
+          
+        </div>
+      </div>
+ 
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 

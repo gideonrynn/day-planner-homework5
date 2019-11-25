@@ -19,6 +19,10 @@ th {
   font-size: large;
 }
 
+.trheader {
+  text-align: center;
+  font-weight: bold;
+}
 
 textarea{
   background: transparent;
