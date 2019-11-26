@@ -10,7 +10,7 @@ trHeader.append(currentTimeTh, hourStatusTh, lastSavedTh);
 var toDay = moment().format('dddd, MMMM Do', true);
 $('#currentDay').html(toDay);
 
-//create color code key append to span
+//create color code key append to instructions details
 var buttonKey = $("#button-color");
 var color1 = $('<button id=color1>' + 'Past' + '</button>').css('background-color', '#dbccff');
 var color2 = $('<button id=color2>' + 'Present' + '</button>').css('background-color', '#fff4cc');
@@ -89,7 +89,7 @@ for (var i = 0; i < workDay.length; i++) {
     function addInputArray () {
         todaysList = [];
 
-        $(this).css('border-left', '1px solid blue');
+        $(this).css('border-left', '1px solid red');
 
         $("textarea").each( function() {
            var t = $(this).val()
