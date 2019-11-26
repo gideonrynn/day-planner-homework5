@@ -13,6 +13,13 @@ th {
   background-color: #b3c3ff;
 }
 
+.note {
+  text-align: center;
+}
+
+#currentDay {
+  font-weight: bold;
+}
 #left-hour, #right-button {
   width: 15%;
   font-weight: bold;
